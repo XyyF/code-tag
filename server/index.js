@@ -3,6 +3,8 @@ const consola = require('consola')
 const { Nuxt, Builder } = require('nuxt')
 // 数据存储
 require('./db/index')
+// API路由
+require('./routes/index')
 
 const app = new Koa()
 

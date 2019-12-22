@@ -1,7 +1,7 @@
 const Datastore = require('nedb')
 const path = require('path')
 
-const users = createDatastore('user')
+const users = createDatastore('account')
 const tags = createDatastore('tag')
 
 function createDatastore (name) {
