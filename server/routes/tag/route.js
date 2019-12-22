@@ -1,23 +1,29 @@
-const Koa = require('koa');
-const route = require('koa-route');
-const dbManager = require('../../utils/db-manager')
+const Router = require('koa-router');
+const dbManager = require('../../db/db-manager');
 
-const app = new Koa();
+const router = new Router();
 
 const add = async (ctx) => {
   const tags = await dbManager.insert({
     tagId: 'test_id',
     tagCode: 'tag',
     tagName: '标签',
+    createdTime: Date.now(),
   }, 'tags')
   ctx.response.body = {tags}
 };
 
-const getListByPaged = (ctx) => {
-  ctx.response.body = 'Hello World';
+const getListByPaged = async (ctx) => {
+  const {
+    index = 0, limit = 0,
+  } = ctx;
+  const skipTags = index * limit;
+  console.log('rengar log', ctx)
+  const tags = await dbManager.find({}, 'tags').sort({createdTime: 1}).skip(skipTags).limit(limit);
+  ctx.response.body = {tags}
 };
 
-app.use(route.get('/api/tag/list/paged', getListByPaged));
-app.use(route.get('/api/tag/add', add));
-app.use(route.get('/api/tag/delete', add));
-app.use(route.get('/api/tag/edit', add));
+router.get('/api/tag/list/paged', getListByPaged);
+router.post('/api/tag/add', add);
+
+module.exports = router
