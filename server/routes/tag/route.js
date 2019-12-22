@@ -16,9 +16,8 @@ const add = async (ctx) => {
 const getListByPaged = async (ctx) => {
   const {
     index = 0, limit = 0,
-  } = ctx;
+  } = ctx.query;
   const skipTags = index * limit;
-  console.log('rengar log', ctx)
   const tags = await dbManager.find({}, 'tags').sort({createdTime: 1}).skip(skipTags).limit(limit);
   ctx.response.body = {tags}
 };

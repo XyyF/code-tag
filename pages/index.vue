@@ -35,12 +35,12 @@
         components: {
             Logo
         },
-        async mounted() {
-            const result = await this.$axios.$get('/api/tag/list/paged', {
-                index: 0,
-                limit: 10,
+        mounted() {
+            this.$axios.$get('/api/tag/list/paged', {
+                params: {
+                    index: 0, limit: 10,
+                },
             })
-            console.log('rengar log', result)
         },
     }
 </script>

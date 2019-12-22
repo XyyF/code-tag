@@ -7,8 +7,9 @@ function registerRouter() {
     glob.sync(resolve(__dirname, './', '**/route.js'))
         .filter(value => value.indexOf('route.js'))
         .map(router => {
-            routers.push(require(router).routes())
-            routers.push(require(router).allowedMethods())
+            const routerInstance = require(router);
+            routers.push(routerInstance.routes());
+            routers.push(routerInstance.allowedMethods())
         });
     return compose(routers)
 }
