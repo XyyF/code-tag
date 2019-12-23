@@ -42,7 +42,7 @@
                 try {
                     const result = await this.$axios.$get('/api/tag/list/paged', {
                         params: {
-                            index: 0, limit: 10, matchText: '',
+                            index: 0, limit: 10, matchText: this.matchText,
                         },
                     })
                     this.tags = result.tags || []
