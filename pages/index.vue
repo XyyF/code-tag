@@ -1,19 +1,32 @@
 <template>
     <div class="container">
+        <header>
+            <img src="../assets/images/logo.png" />
+        </header>
         <el-input
             v-model="matchText"
+            maxlength="40"
             class="container__input"
             @change="handleChgMatchText">
+            <i slot="suffix" class="el-icon-search"></i>
         </el-input>
+
+        <div class="container__tags">
+            <tag-item
+                v-for="tag in tags"
+                :key="tag.tagId"
+                :tag="tag">
+            </tag-item>
+        </div>
     </div>
 </template>
 
 <script>
-    import Logo from '~/components/Logo.vue'
+    import TagItem from './tag-item/index'
 
     export default {
         components: {
-            Logo
+            TagItem,
         },
         data() {
             return {
@@ -48,14 +61,31 @@
     .container {
         min-height: 100vh;
         display: flex;
+        flex-direction: column;
         align-items: center;
-        justify-content: center;
         text-align: center;
+    }
+
+    header {
+        margin-top: 90px;
+        margin-bottom: 16px;
     }
 
     .container__input {
         width: 60%;
         margin: 0 auto;
+        font-size: 22px;
+    }
+
+    .el-icon-search {
+        width: 60px;
+        font-size: 1em;
+    }
+
+    .container__input /deep/ .el-input__suffix-inner {
+        margin-top: 12px;
+        display: inline-block;
+        cursor: pointer;
     }
 
     .container .container__input /deep/ input {
