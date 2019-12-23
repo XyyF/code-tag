@@ -19,18 +19,22 @@
     "koa": "^2.6.2",
     "koa-router": "^7.4.0",
     "nedb": "^1.8.0",
-    "nuxt": "^2.0.0"
+    "nuxt": "^2.0.0",
+    "postcss-px2rem-exclude": "0.0.6"
   },
   "devDependencies": {
-    "nodemon": "^1.18.9",
     "@nuxtjs/eslint-config": "^1.0.1",
     "@nuxtjs/eslint-module": "^1.0.0",
+    "@vue/test-utils": "^1.0.0-beta.27",
     "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
     "eslint": "^6.1.0",
     "eslint-plugin-nuxt": ">=0.4.2",
-    "@vue/test-utils": "^1.0.0-beta.27",
-    "babel-jest": "^24.1.0",
     "jest": "^24.1.0",
+    "node-sass": "^4.13.0",
+    "nodemon": "^1.18.9",
+    "sass-loader": "^8.0.0",
+    "scss-loader": "0.0.1",
     "vue-jest": "^4.0.0-0"
   }
 }

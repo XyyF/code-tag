@@ -1,30 +1,10 @@
 <template>
     <div class="container">
-        <div>
-            <logo/>
-            <h1 class="title">
-                code-tag
-            </h1>
-            <h2 class="subtitle">
-                My wonderful Nuxt.js project
-            </h2>
-            <div class="links">
-                <a
-                    href="https://nuxtjs.org/"
-                    target="_blank"
-                    class="button--green"
-                >
-                    Documentation
-                </a>
-                <a
-                    href="https://github.com/nuxt/nuxt.js"
-                    target="_blank"
-                    class="button--grey"
-                >
-                    GitHub
-                </a>
-            </div>
-        </div>
+        <el-input
+            v-model="matchText"
+            class="container__input"
+            @change="handleChgMatchText">
+        </el-input>
     </div>
 </template>
 
@@ -35,45 +15,52 @@
         components: {
             Logo
         },
+        data() {
+            return {
+                matchText: '',
+                tags: [],
+            }
+        },
+        methods: {
+            handleChgMatchText() {
+                this.requestTags()
+            },
+            async requestTags() {
+                try {
+                    const result = await this.$axios.$get('/api/tag/list/paged', {
+                        params: {
+                            index: 0, limit: 10, matchText: '',
+                        },
+                    })
+                    this.tags = result.tags || []
+                } catch (e) {
+                    throw e
+                }
+            },
+        },
         mounted() {
-            this.$axios.$get('/api/tag/list/paged', {
-                params: {
-                    index: 0, limit: 10,
-                },
-            })
+            this.requestTags()
         },
     }
 </script>
 
-<style>
+<style lang="scss">
     .container {
-        margin: 0 auto;
         min-height: 100vh;
         display: flex;
-        justify-content: center;
         align-items: center;
+        justify-content: center;
         text-align: center;
     }
 
-    .title {
-        font-family: 'Quicksand', 'Source Sans Pro', -apple-system, BlinkMacSystemFont,
-        'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
-        display: block;
-        font-weight: 300;
-        font-size: 100px;
-        color: #35495e;
-        letter-spacing: 1px;
+    .container__input {
+        width: 60%;
+        margin: 0 auto;
     }
 
-    .subtitle {
-        font-weight: 300;
-        font-size: 42px;
-        color: #526488;
-        word-spacing: 5px;
-        padding-bottom: 15px;
-    }
-
-    .links {
-        padding-top: 15px;
+    .container .container__input /deep/ input {
+        height: 58px;
+        border-radius: 80px;
+        padding: 0 60px 0 40px;
     }
 </style>

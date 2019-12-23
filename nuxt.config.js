@@ -27,7 +27,8 @@ module.exports = {
     ** Global CSS
     */
     css: [
-        'element-ui/lib/theme-chalk/index.css'
+        'element-ui/lib/theme-chalk/index.css',
+        '~assets/styles/basic.scss'
     ],
     /*
     ** Plugins to load before mounting the App
@@ -60,6 +61,14 @@ module.exports = {
     */
     build: {
         transpile: [/^element-ui/],
+        postcss: {
+            plugins: {
+                'postcss-px2rem-exclude': {
+                    remUnit: 16, // 转换基本单位
+                    'exclude': '/node_modules/element-ui'
+                },
+            },
+        },
         /*
         ** You can extend webpack config here
         */
