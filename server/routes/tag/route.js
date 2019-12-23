@@ -17,8 +17,7 @@ const getListByPaged = async (ctx) => {
   const {
     index = 0, limit = 0,
   } = ctx.query;
-  const skipTags = index * limit;
-  const tags = await dbManager.find({}, 'tags').sort({createdTime: 1}).skip(skipTags).limit(limit);
+  const tags = await dbManager.findByPaged('tags', {}, {createdTime: 1}, index, limit);
   ctx.response.body = {tags}
 };
 
