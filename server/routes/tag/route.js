@@ -3,17 +3,20 @@ const dbManager = require('../../db/db-manager');
 const helper = require('../../utils/common-utils')
 
 // 搜索匹配字段
-const MATCH_FIELDS = ['tagName'];
+const MATCH_FIELDS = ['tagName', 'description', 'tagCode'];
 
 const router = new Router();
 
 const add = async (ctx) => {
-    const tags = await dbManager.insert({
+    const body = ctx.body || {}
+    const tag = {
         tagId: 'test_id',
-        tagCode: 'tag',
-        tagName: '标签',
+        tagCode: body.code,
+        tagName: body.name,
+        description: body.description,
         createdTime: Date.now(),
-    }, 'tags')
+    }
+    const tags = await dbManager.insert('tags', tag)
     ctx.response.body = {tags}
 };
 

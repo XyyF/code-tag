@@ -11,12 +11,18 @@
             <i slot="suffix" class="el-icon-search"></i>
         </el-input>
 
-        <div class="container__tags">
+        <div v-show="!isLoading" class="container__tags">
             <tag-item
                 v-for="tag in tags"
                 :key="tag.tagId"
                 :tag="tag">
             </tag-item>
+
+            <el-button
+                v-if="tags.length === 0"
+                icon="el-icon-plus">
+                添加
+            </el-button>
         </div>
     </div>
 </template>
@@ -32,6 +38,7 @@
             return {
                 matchText: '',
                 tags: [],
+                isLoading: false,
             }
         },
         methods: {
@@ -39,14 +46,17 @@
                 this.requestTags()
             },
             async requestTags() {
+                this.isLoading = true;
                 try {
                     const result = await this.$axios.$get('/api/tag/list/paged', {
                         params: {
                             index: 0, limit: 10, matchText: this.matchText,
                         },
-                    })
-                    this.tags = result.tags || []
+                    });
+                    this.tags = result.tags || [];
+                    this.isLoading = false
                 } catch (e) {
+                    this.isLoading = false;
                     throw e
                 }
             },

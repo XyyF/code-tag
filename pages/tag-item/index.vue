@@ -1,7 +1,7 @@
 <template>
     <div class="tag-item-root">
         <!-- Block-Element--Modifier-->
-        {{ tag.tagName }}
+        {{ tag.tagCode }}
     </div>
 </template>
 
