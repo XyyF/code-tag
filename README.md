@@ -13,6 +13,19 @@ npm install
 
 npm run dev
 
+Dev
+===
+Client 文件目录结构:
+```js
+├── api // 前端请求集合
+├── assets // 静态目录存放
+├── components // 前端业务无关组件
+├── data // 数据存储
+├── pages // 前端业务组件
+├── server // 后端服务
+│   ├── db // 数据库链接
+│   ├── routes // 请求路由
+```
 ToDo List
 =========
 
