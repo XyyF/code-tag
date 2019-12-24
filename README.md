@@ -30,7 +30,7 @@ ToDo List
 =========
 
 - [ ] 接入翻译API，输入单词自动翻译
-- [ ] 新增tag弹窗内容
+- [x] 新增tag弹窗内容
 - [ ] tag出现动画处理
 - [ ] 帐号权限体系
 - [ ] 点击tag出现功能框
@@ -39,4 +39,5 @@ ToDo List
   - [ ] Copy
 - [ ] github入口
 - [ ] Quick Search快捷搜索
+- [ ] 请求生命周期流程优化
 - [ ] logo替换 => \<code tag \/\>
