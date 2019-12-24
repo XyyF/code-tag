@@ -20,7 +20,8 @@
 
             <el-button
                 v-if="tags.length === 0"
-                icon="el-icon-plus">
+                icon="el-icon-plus"
+                @click="handleClickAdd">
                 添加
             </el-button>
         </div>
@@ -28,6 +29,7 @@
 </template>
 
 <script>
+    import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
 
     export default {
@@ -59,6 +61,13 @@
                     this.isLoading = false;
                     throw e
                 }
+            },
+            handleClickAdd() {
+                this.$dialog.config({
+                    props: {
+                        title: '新增tag',
+                    },
+                }).show(AddTag)
             },
         },
         mounted() {

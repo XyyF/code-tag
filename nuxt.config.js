@@ -35,7 +35,8 @@ module.exports = {
     */
     plugins: [
         '@/plugins/element-ui',
-        '@/plugins/axios'
+        '@/plugins/axios',
+        {src: '@/plugins/dialog-controller', ssr: false}
     ],
     /*
     ** Nuxt.js dev-modules
