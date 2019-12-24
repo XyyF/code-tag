@@ -53,6 +53,9 @@ const DialogOptions = {
             const config = this.getConfig(sceneId)
             config.dialogOptions = options
         },
+        close() {
+            this.dialogVisible = false
+        },
         // 获取对应的弹窗配置
         getConfig(sceneId) {
             let config = this.configs.find(item => item.sceneId === sceneId);
@@ -211,6 +214,11 @@ export default class Dialog {
         const {setDialogOptions} = this.dialogRoot;
 
         setDialogOptions(parsedSceneId, config);
+        return this
+    }
+
+    close() {
+        this.dialogRoot.close()
         return this
     }
 
