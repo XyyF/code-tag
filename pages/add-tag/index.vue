@@ -32,6 +32,8 @@
 </template>
 
 <script>
+    import * as tagApi from '~/api/tag'
+
     export default {
         name: 'add-tag',
         data() {
@@ -58,7 +60,7 @@
             async handleClickSave() {
                 this.isLoading = true;
                 try {
-                    await this.$axios.$post('/api/tag/add', {
+                    await tagApi.addTag({
                         tagCode: this.tagInfo.code,
                         tagName: this.tagInfo.name,
                         description: this.tagInfo.description,

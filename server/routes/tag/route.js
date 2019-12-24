@@ -8,16 +8,16 @@ const MATCH_FIELDS = ['tagName', 'description', 'tagCode'];
 const router = new Router();
 
 const add = async (ctx) => {
-    const body = ctx.body || {}
+    const body = ctx.request.body || {};
     const tag = {
         tagId: 'test_id',
         tagCode: body.code,
         tagName: body.name,
         description: body.description,
         createdTime: Date.now(),
-    }
-    const tags = await dbManager.insert('tags', tag)
-    ctx.response.body = {tags}
+    };
+    const tags = await dbManager.insert('tags', tag);
+    ctx.response.body = {tags};
 };
 
 const getListByPaged = async (ctx) => {

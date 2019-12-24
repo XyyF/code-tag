@@ -1,6 +1,8 @@
 const Koa = require('koa');
 const consola = require('consola');
 const {Nuxt, Builder} = require('nuxt');
+// 解析request的body的功能(post请求)
+const bodyParser = require('koa-bodyparser');
 
 // 数据存储
 require('./db/index')
@@ -29,7 +31,8 @@ async function start() {
     } else {
         await nuxt.ready()
     }
-
+    // 解析参数
+    app.use(bodyParser())
     app.use(registerRouter())
 
     app.use((ctx) => {

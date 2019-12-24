@@ -29,6 +29,8 @@
 </template>
 
 <script>
+    import * as tagApi from '~/api/tag'
+
     import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
 
@@ -50,10 +52,8 @@
             async requestTags() {
                 this.isLoading = true;
                 try {
-                    const result = await this.$axios.$get('/api/tag/list/paged', {
-                        params: {
-                            index: 0, limit: 10, matchText: this.matchText,
-                        },
+                    const result = await tagApi.getTagListByPage({
+                        index: 0, limit: 10, matchText: this.matchText,
                     });
                     this.tags = result.tags || [];
                     this.isLoading = false
