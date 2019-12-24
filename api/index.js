@@ -26,7 +26,13 @@ const axiosInstance = axios.create({
 // response interceptor
 axiosInstance.interceptors.response.use(
     response => {
-        return response.data //res is my own data
+        const result = response.data
+        if (result.status && result.status.code === 200) {
+            return result.data
+        } else if (!result.status) {
+            return result
+        }
+        return handleError(result)
     },
     error => {
         console.log('err' + error) // for debug
@@ -79,17 +85,15 @@ function addVersionToUrl(url) {
  * 通过get发送并接收json格式的数据.并统一处理常见的错误
  * @param {string} url
  * @param {object?} params={}
- * @param {boolean?} throwError 是否不使用默认的异常处理方法，而把异常抛出来
- * @param {int?} timeout 超时时间，默认10秒
  * @return {Promise} 返回一个promise对象
  */
-httpRequestor.get = function get(url, params = {}, throwError, timeout) {
+httpRequestor.get = function get(url, params = {}) {
     return commonAjax({
         method: 'GET',
         url,
         params,
-        errorHandler: (!throwError && httpRequestor.defaultErrorHandler) || null,
-        timeout: timeout || DEFAULT_TIME_OUT,
+        errorHandler: httpRequestor.defaultErrorHandler,
+        timeout: DEFAULT_TIME_OUT,
         withCredentials: httpRequestor.withCredentials,
     })
 }
@@ -98,23 +102,31 @@ httpRequestor.get = function get(url, params = {}, throwError, timeout) {
  * 通过post发送数据，使后端直接收到json格式的数据。并统一处理常见的错误
  * @param {string} url
  * @param {object?} data={}
- * @param {object?} params={}
- * @param {boolean?} throwError 是否不使用默认的异常处理方法，而把异常抛出来
- * @param {int?} timeout 超时时间，默认10秒
  * @return {Promise} 返回一个promise对象
  */
-httpRequestor.post = function postJson(url, data = {}, params = {}, throwError, timeout, disableQueue = false) {
+httpRequestor.post = function postJson(url, data = {}) {
     return commonAjax({
         method: 'POST',
         url,
-        params,
         data: JSON.stringify(data),
-        errorHandler: (!throwError && httpRequestor.defaultErrorHandler) || null,
-        timeout: timeout || DEFAULT_TIME_OUT,
+        errorHandler: httpRequestor.defaultErrorHandler,
+        timeout: DEFAULT_TIME_OUT,
         withCredentials: httpRequestor.withCredentials,
         headers: {'Content-Type': 'application/json'},
-        disableQueue,
     })
+}
+
+/**
+ * 统一的异常对象封装逻辑，在这里抛出异常
+ * @param {object|Error} result 请求回包对象，或异常信息
+ * @param {object} result.data
+ * @param {object} result.status
+ * @param {string} result.status.message
+ * @returns {Promise}
+ */
+function handleError(result) {
+    Message.error(result.status.message);
+    return Promise.reject(result.status.message);
 }
 
 export default httpRequestor //导出封装后的httpRequestor

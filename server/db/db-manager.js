@@ -67,7 +67,7 @@ module.exports = {
             })
         })
     },
-    findByPaged(dataStore, query, sortParams = {}, skipIndex = 0, limit = 10) {
+    findByPaged(dataStore, query, {sortParams = {}, skipIndex = 0, limit = 10}) {
         return new Promise((resolve, reject) => {
             db[dataStore]
                 .find(query)
@@ -83,4 +83,4 @@ module.exports = {
                 })
         })
     }
-}
+};

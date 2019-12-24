@@ -46,10 +46,10 @@
                 },
                 rules: {
                     name: [
-                        { required: true, message: '请输入单词含义', trigger: 'blur' },
+                        {required: true, message: '请输入单词含义', trigger: 'blur'},
                     ],
                     code: [
-                        { required: true, message: '请选择单词', trigger: 'change' }
+                        {required: true, message: '请选择单词', trigger: 'change'}
                     ],
                 },
                 isLoading: false,
@@ -61,8 +61,8 @@
                 this.isLoading = true;
                 try {
                     await tagApi.addTag({
-                        tagCode: this.tagInfo.code,
-                        tagName: this.tagInfo.name,
+                        code: this.tagInfo.code,
+                        name: this.tagInfo.name,
                         description: this.tagInfo.description,
                     });
                     this.isLoading = false;

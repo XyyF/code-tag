@@ -52,10 +52,9 @@
             async requestTags() {
                 this.isLoading = true;
                 try {
-                    const result = await tagApi.getTagListByPage({
+                    this.tags = await tagApi.getTagListByPage({
                         index: 0, limit: 10, matchText: this.matchText,
                     });
-                    this.tags = result.tags || [];
                     this.isLoading = false
                 } catch (e) {
                     this.isLoading = false;

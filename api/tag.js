@@ -6,15 +6,21 @@ export default {
 }
 
 /**
- * 获取博客详情
- * @param params 参数
+ * 获取tags
+ * @param {Object} params 参数
+ * @param {Number} params.index 下标
+ * @param {Number} params.limit 限制数量
+ * @param {String} params.matchText 搜索值
  */
 export function getTagListByPage(params) {
     return request.get('/tag/list/paged', params)
 }
 /**
- * 获取博客列表
- * @param params 参数
+ * 新增tag
+ * @param {Object} params 参数
+ * @param {Number} params.name 展示值
+ * @param {Number} params.code 单词
+ * @param {String} params.description 使用场景描述
  */
 export function addTag(params) {
     return request.post('/tag/add', params)
