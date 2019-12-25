@@ -61,6 +61,15 @@ module.exports = {
     ** Build configuration
     */
     build: {
+        babel: {
+            presets({isServer}) {
+                const targets = isServer ? {node: '10'} : {ie: '11'}
+                return [
+                    [require.resolve('@nuxt/babel-preset-app'), {targets}],
+                    '@elfin-fe/elfin'
+                ]
+            },
+        },
         transpile: [/^element-ui/],
         postcss: {
             plugins: {

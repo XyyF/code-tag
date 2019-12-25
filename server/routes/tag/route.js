@@ -1,6 +1,6 @@
 const Router = require('koa-router');
 const manager = require('./manager');
-const helper = require('../../utils/common-utils');
+const helper = require('../../../utils/rear-end/common-utils');
 
 // 搜索匹配字段
 const MATCH_FIELDS = ['tagName', 'description', 'tagCode'];

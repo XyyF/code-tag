@@ -40,7 +40,7 @@ function thenSend(ctx, next) {
     return this.then((result) => {
         ctx.response.body = {data: result, status: {code: 200}};
     }).catch((error) => {
-        const message = `回包异常：${ctx.method} url: ${ctx.url}, 错误信息：${JSON.stringify(error)}`
+        const message = `回包异常：${ctx.method} url: ${ctx.url}, 错误信息：${JSON.stringify(error)}`;
         console.error(message);
         ctx.response.body = {data: null, status: {code: 500, message}};
     });
@@ -49,4 +49,4 @@ function thenSend(ctx, next) {
 module.exports = {
     thenSend,
     getRegexpQuery,
-}
+};
