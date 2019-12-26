@@ -22,9 +22,7 @@ Client 文件目录结构:
 ├── components // 前端业务无关组件
 ├── data // 数据存储
 ├── pages // 前端业务组件
-├── utils // 业务无关逻辑
-│   ├── front-end // 前端
-│   ├── rear-end // 后端
+├── utils // 业务无关单元逻辑
 ├── server // 后端服务
 │   ├── db // 数据库链接
 │   ├── routes // 请求路由
@@ -43,4 +41,5 @@ ToDo List
 - [ ] github入口
 - [ ] Quick Search快捷搜索
 - [ ] 请求生命周期流程优化
+- [ ] 后端数据校验方案
 - [ ] logo替换 => \<code tag \/\>

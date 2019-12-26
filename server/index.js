@@ -3,7 +3,7 @@ const consola = require('consola');
 const {Nuxt, Builder} = require('nuxt');
 // 解析request的body的功能(post请求)
 const bodyParser = require('koa-bodyparser');
-const {thenSend} = require('../utils/rear-end/common-utils');
+const {thenSend} = require('../utils/common-utils');
 Promise.prototype.thenSend = thenSend;
 // 数据存储
 require('./db/index');

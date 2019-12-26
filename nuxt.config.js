@@ -65,10 +65,13 @@ module.exports = {
             presets({isServer}) {
                 const targets = isServer ? {node: '10'} : {ie: '11'}
                 return [
-                    [require.resolve('@nuxt/babel-preset-app'), {targets}],
+                    ['@nuxt/babel-preset-app', {targets, 'modules': 'commonjs'}],
                     '@elfin-fe/elfin'
                 ]
             },
+            plugins: [
+                'add-module-exports'
+            ]
         },
         transpile: [/^element-ui/],
         postcss: {

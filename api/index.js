@@ -4,7 +4,7 @@
  */
 import {Message} from 'element-ui' //引用饿了么UI消息组件
 import axios from 'axios' //引用axios
-import helper from '~/utils/front-end/common-utils'
+import helper from '../utils/common-utils'
 
 const httpRequestor = {
     // 默认的异常处理方法，会传入完整的data对象，可以在这里弹提示框
