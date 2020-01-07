@@ -6,7 +6,7 @@
             labelWidth="70px"
             :model="tagInfo"
             :rules="rules">
-            <el-form-item label="单词:" prop="code">
+            <el-form-item label="词汇:" prop="code">
                 <el-input v-model="tagInfo.code"></el-input>
             </el-form-item>
             <el-form-item label="含义:" prop="name">
@@ -33,6 +33,7 @@
 
 <script>
     import * as tagApi from '~/api/tag'
+    import {isValidateName} from '~/utils/regexp-validator'
 
     export default {
         name: 'add-tag',
@@ -46,10 +47,26 @@
                 },
                 rules: {
                     name: [
-                        {required: true, message: '请输入单词含义', trigger: 'blur'},
+                        {
+                            required: true,
+                            trigger: 'blur',
+                            validator: (rule, value, callback) => {
+                                if (!value) return callback('请输入词汇含义')
+                                if (!isValidateName(value)) return callback('不可输入空格及特殊字符')
+                                return callback()
+                            },
+                        },
                     ],
                     code: [
-                        {required: true, message: '请选择单词', trigger: 'change'}
+                        {
+                            required: true,
+                            trigger: 'blur',
+                            validator: (rule, value, callback) => {
+                                if (!value) return callback('请输入词汇')
+                                if (!isValidateName(value)) return callback('不可输入空格及特殊字符')
+                                return callback()
+                            },
+                        }
                     ],
                 },
                 isLoading: false,
