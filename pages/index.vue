@@ -25,6 +25,8 @@
                 添加
             </el-button>
         </div>
+
+        <speed-dial></speed-dial>
     </div>
 </template>
 
@@ -33,10 +35,12 @@
 
     import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
+    import SpeedDial from './speed-dial/index'
 
     export default {
         components: {
             TagItem,
+            SpeedDial,
         },
         data() {
             return {
@@ -64,6 +68,7 @@
             handleClickAdd() {
                 this.$dialog.config({
                     props: {
+                        width: '500px',
                         title: '新增tag',
                     },
                 }).show(AddTag)
@@ -77,7 +82,6 @@
 
 <style lang="scss">
     .container {
-        min-height: 100vh;
         display: flex;
         flex-direction: column;
         align-items: center;

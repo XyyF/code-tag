@@ -98,7 +98,6 @@
         display: flex;
         justify-content: center;
         margin-top: 30px;
-        height: 36px;
 
         .el-button {
             width: 96px;
