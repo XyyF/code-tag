@@ -17,13 +17,6 @@
                 :key="tag.tagId"
                 :tag="tag">
             </tag-item>
-
-            <el-button
-                v-if="tags.length === 0"
-                icon="el-icon-plus"
-                @click="handleClickAdd">
-                添加
-            </el-button>
         </div>
 
         <speed-dial></speed-dial>
@@ -33,7 +26,6 @@
 <script>
     import * as tagApi from '~/api/tag'
 
-    import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
     import SpeedDial from './speed-dial/index'
 
@@ -66,12 +58,6 @@
                 }
             },
             handleClickAdd() {
-                this.$dialog.config({
-                    props: {
-                        width: '500px',
-                        title: '新增tag',
-                    },
-                }).show(AddTag)
             },
         },
         mounted() {
