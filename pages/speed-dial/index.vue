@@ -53,7 +53,9 @@
                         width: '500px',
                         title: '新增tag',
                     },
-                }).show(AddTag)
+                }).show(AddTag).onClose((data) => {
+                    console.log('rengar log', data)
+                })
             },
         },
     }

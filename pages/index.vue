@@ -57,8 +57,6 @@
                     throw e
                 }
             },
-            handleClickAdd() {
-            },
         },
         mounted() {
             this.requestTags()

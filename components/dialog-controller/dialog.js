@@ -53,7 +53,9 @@ const DialogOptions = {
             const config = this.getConfig(sceneId)
             config.dialogOptions = options
         },
-        close() {
+        close(extra, sceneId) {
+            const config = this.getConfig(sceneId)
+            config.extraToClose = extra
             this.dialogVisible = false
         },
         // 获取对应的弹窗配置
@@ -67,6 +69,7 @@ const DialogOptions = {
                     dialogOptions: null,
                     component: null,
                     componentOptions: null,
+                    extraToClose: null,
                 };
                 this.configs.push(config)
             }
@@ -82,6 +85,10 @@ const DialogOptions = {
                 config.component = component;
                 config.componentOptions = options
             }
+        },
+        setCallbackOnClose(sceneId, onClose) {
+            const config = this.getConfig(sceneId)
+            config.onClose = onClose
         },
     },
     render(h) {
@@ -134,6 +141,16 @@ const DialogOptions = {
     watch: {
         dialogVisible(val) {
             if (val) return;
+            // 弹框关闭了，所有的弹框内容都要回调 onClose
+            this.configs.forEach(item => {
+                if (!item.onClose) return
+
+                const getDataSafe = data => [undefined, null].includes(data) ? null : [data]
+                const getExposeData = propertyName =>
+                    (getDataSafe(item[propertyName]) || getDataSafe(this[propertyName]) || [null])[0]
+
+                item.onClose(getExposeData('extraToClose'), getExposeData('dialogWrapperData'))
+            })
             this._reset()
         },
     },
@@ -217,8 +234,19 @@ export default class Dialog {
         return this
     }
 
-    close() {
-        this.dialogRoot.close()
+    close(extra) {
+        this.dialogRoot.close(extra, this.sceneId - 1)
+        return this
+    }
+
+    /**
+     * 设置dialog关闭的回调
+     * @param callback
+     * @param sceneId {int?} 场景id，用于区分连续弹框时场景划分
+     * @return {Dialog}
+     */
+    onClose(callback, sceneId) {
+        this.dialogRoot.setCallbackOnClose(sceneId || this.sceneId, callback)
         return this
     }
 

@@ -42,4 +42,4 @@ ToDo List
 - [ ] Quick Search快捷搜索
 - [ ] 请求生命周期流程优化
 - [ ] 后端数据校验方案
-- [ ] logo替换 => \<code tag \/\>
+- [x] logo替换 => \<code tag \/\>

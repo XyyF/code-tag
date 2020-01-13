@@ -7,7 +7,7 @@ const MATCH_FIELDS = ['tagName', 'description', 'tagCode'];
 
 const router = new Router();
 
-const addTag = (ctx) => {
+const addTag = (ctx, next) => {
     const body = ctx.request.body || {};
     const params = {
         tagId: 'test_id',

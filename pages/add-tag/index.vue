@@ -84,7 +84,7 @@
                         description: this.tagInfo.description,
                     });
                     this.isLoading = false;
-                    this.$dialog.close();
+                    this.$dialog.close({done: true});
                 } catch (e) {
                     this.isLoading = false;
                     throw e
