@@ -4,20 +4,20 @@
         <el-button
             circle
             type="primary"
-            icon="el-icon-plus"
+            icon="el-icon-setting"
             class="speed-dial__btn"
             @mouseenter.native="handleFocusBtn">
         </el-button>
 
         <div class="speed-dial__panel" :class="{'speed-dial__panel--close': !isDialShow}">
             <div class="speed-dial__panel-body">
-                <div class="panel-body__label">
+                <span class="panel-body__label">
                     新增tag
-                </div>
+                </span>
                 <el-button
                     circle
                     class="speed-dial__btn"
-                    icon="el-icon-plus"
+                    icon="el-icon-folder-add"
                     @click="handleAddTag">
                 </el-button>
             </div>
@@ -74,16 +74,16 @@
         position: fixed;
         right: 50px;
         bottom: 100px;
+
+        &:hover > .el-button {
+            transform: rotate(45deg);
+            background-color: rgb(17, 82, 147);
+        }
     }
 
     .speed-dial-root > .el-button {
         width: 56px;
         height: 56px;
-
-        &:hover {
-            transform: rotate(45deg);
-            background-color: rgb(17, 82, 147);
-        }
     }
 
     .speed-dial__panel {
@@ -105,22 +105,28 @@
     }
 
     .speed-dial__panel-body {
+        position: relative;
         display: flex;
         align-items: center;
-        margin: 8px;
         transition-delay: 150ms;
         transition: transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, opacity 0.8s;
     }
 
     .panel-body__label {
         white-space: nowrap;
-        color: rgba(0, 0, 0, 0.54);
+        color: rgba(255, 255, 255, 0.7);
         padding: 4px 16px;
-        font-size: 16px;
+        font-size: 14px;
         position: absolute;
         right: 100%;
         box-shadow: 0 2px 1px -1px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 1px 3px 0px rgba(0, 0, 0, 0.12);
         border-radius: 4px;
+        transition-delay: 0ms;
+        background-color: #424242;
+        font-weight: 400;
+        line-height: 1.5;
+        letter-spacing: 0.00938em;
+        margin-right: 8px;
     }
 
     .speed-dial__panel-body > .el-button {

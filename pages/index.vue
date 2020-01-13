@@ -75,8 +75,11 @@
     }
 
     header {
+        width: 400px;
+        height: 200px;
         margin-top: 90px;
         margin-bottom: 16px;
+        pointer-events: none;
     }
 
     .container__input {
