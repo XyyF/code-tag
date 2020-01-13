@@ -89,7 +89,7 @@
                 })
             },
         },
-        created() {
+        mounted() {
             this.requestTags()
         },
     }
