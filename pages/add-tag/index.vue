@@ -75,6 +75,7 @@
         methods: {
             /* Notice: 复杂的方法，写下说明 */
             async handleClickSave() {
+                await this.$refs.tagForm.validate()
                 this.isLoading = true;
                 try {
                     await tagApi.addTag({
