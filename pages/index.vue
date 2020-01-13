@@ -19,20 +19,29 @@
             </tag-item>
         </div>
 
-        <speed-dial></speed-dial>
+        <speed-dial>
+            <speed-dial-action
+                v-for="action in actions"
+                :key="action.title"
+                :action="action">
+            </speed-dial-action>
+        </speed-dial>
     </div>
 </template>
 
 <script>
     import * as tagApi from '~/api/tag'
 
+    import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
-    import SpeedDial from './speed-dial/index'
+    import SpeedDial from '../components/speed-dial/index'
+    import SpeedDialAction from '../components/speed-dial/speed-dial-action'
 
     export default {
         components: {
             TagItem,
             SpeedDial,
+            SpeedDialAction,
         },
         data() {
             return {
@@ -40,6 +49,17 @@
                 tags: [],
                 isLoading: false,
             }
+        },
+        computed: {
+            actions() {
+                return [
+                    {
+                        title: '新增tag',
+                        icon: 'el-icon-folder-add',
+                        onClick: this.handleAddTag.bind(this),
+                    },
+                ]
+            },
         },
         methods: {
             handleChgMatchText() {
@@ -57,8 +77,19 @@
                     throw e
                 }
             },
+            handleAddTag() {
+                this.$dialog.config({
+                    props: {
+                        width: '500px',
+                        title: '新增tag',
+                    },
+                }).show(AddTag).onClose((data) => {
+                    if (!data) return
+                    this.requestTags()
+                })
+            },
         },
-        mounted() {
+        created() {
             this.requestTags()
         },
     }
