@@ -40,7 +40,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, opacity 0.8s;
         opacity: 1;
     }
 
@@ -60,7 +60,7 @@
         letter-spacing: 0.00938em;
         margin-right: 8px;
         opacity: 1;
-        transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+        transition: transform 225ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, opacity 0.8s;
     }
 
     .speed-dial-action--close {

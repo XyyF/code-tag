@@ -20,7 +20,7 @@
             const children = this.$slots['default'].map((component, index) => {
                 // 设置阶梯延时
                 component.data.style = {
-                    transitionDelay: `${40 * (this.$slots.default.length - index)}ms`,
+                    transitionDelay: `${60 * (this.$slots.default.length - index)}ms`,
                 }
                 return component
             })
