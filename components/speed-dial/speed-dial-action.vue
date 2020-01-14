@@ -22,7 +22,7 @@
                         circle
                         class="speed-dial__btn"
                         icon={this.action.icon}
-                        onClick="action.onClick">
+                        onClick={this.action.onClick}>
                     </el-button>
                 </div>
             )

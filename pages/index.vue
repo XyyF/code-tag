@@ -1,7 +1,7 @@
 <template>
     <div class="container">
         <header>
-            <img src="../assets/images/logo.png" />
+            <img src="../assets/images/logo.png"/>
         </header>
         <el-input
             v-model="matchText"
@@ -12,11 +12,15 @@
         </el-input>
 
         <div v-show="!isLoading" class="container__tags">
-            <tag-item
-                v-for="tag in tags"
-                :key="tag.tagId"
-                :tag="tag">
-            </tag-item>
+            <template v-for="(tag, index) in tags">
+                <transition appear name="el-zoom-in-center">
+                    <tag-item
+                        :key="tag.tagId"
+                        :tag="tag"
+                        :style="{'transition-delay': `${60 * index}ms`}">
+                    </tag-item>
+                </transition>
+            </template>
         </div>
 
         <speed-dial>
