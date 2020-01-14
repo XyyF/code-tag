@@ -54,6 +54,11 @@
             actions() {
                 return [
                     {
+                        title: '登录',
+                        icon: 'el-icon-user',
+                        onClick: this.handleAddTag.bind(this),
+                    },
+                    {
                         title: '新增tag',
                         icon: 'el-icon-folder-add',
                         onClick: this.handleAddTag.bind(this),
