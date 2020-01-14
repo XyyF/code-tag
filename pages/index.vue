@@ -13,13 +13,23 @@
 
         <div v-show="!isLoading" class="container__tags">
             <template v-for="(tag, index) in tags">
-                <transition appear name="el-zoom-in-center">
-                    <tag-item
-                        :key="tag.tagId"
-                        :tag="tag"
-                        :style="{'transition-delay': `${60 * index}ms`}">
-                    </tag-item>
-                </transition>
+                <el-popover
+                    placement="top"
+                    width="150"
+                    popperClass="tag-popover-root"
+                    trigger="click">
+                    <popover-card></popover-card>
+                    <transition
+                        appear
+                        slot="reference"
+                        name="el-zoom-in-center">
+                        <tag-item
+                            :key="tag.tagId"
+                            :tag="tag"
+                            :style="{'transition-delay': `${60 * index}ms`}">
+                        </tag-item>
+                    </transition>
+                </el-popover>
             </template>
         </div>
 
@@ -38,6 +48,7 @@
 
     import AddTag from './add-tag/index'
     import TagItem from './tag-item/index'
+    import PopoverCard from './popover-card/index'
     import SpeedDial from '../components/speed-dial/index'
     import SpeedDialAction from '../components/speed-dial/speed-dial-action'
 
@@ -45,6 +56,7 @@
         components: {
             TagItem,
             SpeedDial,
+            PopoverCard,
             SpeedDialAction,
         },
         data() {
@@ -105,6 +117,11 @@
 </script>
 
 <style lang="scss">
+    .tag-popover-root {
+        padding: 0;
+    }
+</style>
+<style lang="scss" scoped>
     .container {
         display: flex;
         flex-direction: column;
