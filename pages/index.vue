@@ -17,8 +17,8 @@
                     placement="top"
                     width="150"
                     popperClass="tag-popover-root"
-                    trigger="click">
-                    <popover-card></popover-card>
+                    trigger="hover">
+                    <popover-card :tag="tag"></popover-card>
                     <transition
                         appear
                         slot="reference"
@@ -109,8 +109,20 @@
                     this.requestTags()
                 })
             },
+            // 初始化搜索值
+            initMatchText() {
+                if (!this.$route.hash) return
+                this.matchText = decodeURIComponent(this.$route.hash.replace(/^#/, ''))
+            },
+        },
+        watch: {
+            '$route'() {
+                this.initMatchText()
+                this.requestTags()
+            },
         },
         mounted() {
+            this.initMatchText()
             this.requestTags()
         },
     }
