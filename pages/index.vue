@@ -14,11 +14,12 @@
         <div v-show="!isLoading" class="container__tags">
             <template v-for="(tag, index) in tags">
                 <el-popover
+                    :key="tag.tagId"
                     placement="top"
                     width="150"
                     popperClass="tag-popover-root"
                     trigger="hover">
-                    <popover-card :tag="tag"></popover-card>
+                    <popover-card :key="tag.tagId" :tag="tag"></popover-card>
                     <transition
                         appear
                         slot="reference"
