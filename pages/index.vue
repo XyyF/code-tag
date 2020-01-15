@@ -12,26 +12,35 @@
         </el-input>
 
         <div v-show="!isLoading" class="container__tags">
-            <template v-for="(tag, index) in tags">
-                <el-popover
-                    :key="tag.tagId"
-                    placement="top"
-                    width="150"
-                    popperClass="tag-popover-root"
-                    trigger="hover">
-                    <popover-card :key="tag.tagId" :tag="tag"></popover-card>
-                    <transition
-                        appear
-                        slot="reference"
-                        name="el-zoom-in-center">
-                        <tag-item
+            <div v-for="aggreation in tagAggreations" class="tags-aggreation">
+                <template v-for="(tag, index) in aggreation.tags">
+                    <el-popover
+                        :key="tag.tagId"
+                        placement="top"
+                        width="150"
+                        :closeDelay="0"
+                        popperClass="tag-popover-root"
+                        trigger="click">
+                        <popover-card
                             :key="tag.tagId"
                             :tag="tag"
-                            :style="{'transition-delay': `${60 * index}ms`}">
-                        </tag-item>
-                    </transition>
-                </el-popover>
-            </template>
+                            @update:matchText="val => handleChgMatchText(val)">
+                        </popover-card>
+                        <transition
+                            appear
+                            slot="reference"
+                            name="el-zoom-in-center">
+                            <tag-item
+                                :key="tag.tagId"
+                                :tag="tag"
+                                :style="{'transition-delay': `${60 * index}ms`}">
+                            </tag-item>
+                        </transition>
+                    </el-popover>
+                </template>
+
+                <hr/>
+            </div>
         </div>
 
         <speed-dial>
@@ -63,7 +72,8 @@
         data() {
             return {
                 matchText: '',
-                tags: [],
+                // 标签搜索集合
+                tagAggreations: [],
                 isLoading: false,
             }
         },
@@ -84,18 +94,33 @@
             },
         },
         methods: {
-            handleChgMatchText() {
+            // 输入值确认修改
+            handleChgMatchText(val) {
+                // 同步输入值
+                this.matchText = val
+                // 请求相关数据
                 this.requestTags()
+                // 设置hash值
+                this.setRouteHash()
             },
             async requestTags() {
-                this.isLoading = true;
+                if (!this.matchText) return
+                this.isLoading = true
                 try {
-                    this.tags = await tagApi.getTagListByPage({
+                    const result = await tagApi.getTagListByPage({
                         index: 0, limit: 10, matchText: this.matchText,
                     });
+                    if (result.length <= 0) {
+                        this.isLoading = false
+                        return
+                    }
+                    this.tagAggreations.push({
+                        timeStamp: Date.now(),
+                        tags: result,
+                    })
                     this.isLoading = false
                 } catch (e) {
-                    this.isLoading = false;
+                    this.isLoading = false
                     throw e
                 }
             },
@@ -110,20 +135,21 @@
                     this.requestTags()
                 })
             },
+            // 设置hash值
+            setRouteHash() {
+                if (!this.matchText) return
+                window.location.href = `/#${this.matchText}`
+            },
             // 初始化搜索值
             initMatchText() {
                 if (!this.$route.hash) return
                 this.matchText = decodeURIComponent(this.$route.hash.replace(/^#/, ''))
             },
         },
-        watch: {
-            '$route'() {
-                this.initMatchText()
-                this.requestTags()
-            },
-        },
         mounted() {
+            // 同步输入框的值
             this.initMatchText()
+            // 请求数据
             this.requestTags()
         },
     }
@@ -152,7 +178,7 @@
 
     .container__input {
         width: 60%;
-        margin: 0 auto;
+        margin: 6px auto;
         font-size: 22px;
     }
 
@@ -171,5 +197,21 @@
         height: 58px;
         border-radius: 80px;
         padding: 0 60px 0 40px;
+    }
+
+    .container__tags {
+        width: 100%;
+        display: flex;
+        flex-direction: column-reverse;
+    }
+
+    .tags-aggreation hr {
+        width: 70%;
+        border-color: rgba(0, 0, 0, .16);
+        margin-top: 6px;
+    }
+
+    .tags-aggreation:first-child hr {
+        display: none;
     }
 </style>

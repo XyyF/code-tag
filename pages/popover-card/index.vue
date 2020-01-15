@@ -1,7 +1,7 @@
 <template>
     <div class="popover-card-root">
         <!-- Block-Element--Modifier-->
-        <a class="card__line" :href="`#${tag.tagCode}`">搜索</a>
+        <div class="card__line" @click="handleSearch">搜索</div>
         <div class="card__line">编辑</div>
         <div class="card__line">删除</div>
     </div>
@@ -23,6 +23,11 @@
             tag: {
                 type: Object,
                 default: () => ({}),
+            },
+        },
+        methods: {
+            handleSearch() {
+                this.$emit('update:matchText', this.tag.tagCode)
             },
         },
     }
